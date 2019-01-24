@@ -1,39 +1,55 @@
-<?php include('server.php') ?>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login & Registration</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <div class="header">
-  	<h2>Register</h2>
-  </div>
+<?php
+    session_start();
+    if(isset($_SESSION['uname']))
+    {
+      echo "You are already logged in ...";
+    }
+    else{
+?>
 
-  <form action="register.php" method="post" >
-  	<?php include('errors.php'); ?>
-  	<div class="input-group">
-  	  <label>Username</label>
-  	  <input type="text" name="username" value="<?php echo $username; ?>">
-  	</div>
-  	<div class="input-group">
-  	  <label>Email</label>
-  	  <input type="email" name="email" value="<?php echo $email; ?>">
-  	</div>
-  	<div class="input-group">
-  	  <label>Password</label>
-  	  <input type="password" name="password_1">
-  	</div>
-  	<div class="input-group">
-  	  <label>Confirm password</label>
-  	  <input type="password" name="password_2">
-  	</div>
-  	<div class="input-group">
-  	  <button type="submit" class="btn" name="reg_user">Register</button>
-  	</div>
-  	<p>
-  		Already a member? <a href="login.php">Sign in</a>
-  	</p>
-  </form>
-</body>
-</html>
+<!DOCTYPE html>  
+ <html lang="en" class="no-js">  
+ <head>  
+        <meta charset="UTF-8" />  
+        <title> Registration Form </title>  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    </head>  
+    <body>
+         <form  method="post" action="">  
+                     <h1> Sign up </h1>   
+                    <input id="uname" name="uname" required="required" type="text" placeholder="Enter name" />    
+                    <input id="email" name="email" required="required" type="email" placeholder="xyz@mail.com"/>    
+                    <input id="pass" name="pass" required="required" type="password" placeholder="eg. X8df!90EO"/>    
+                    <input type="submit" name="register" value="Sign up"/>                 
+        </form>                   
+    </body>  
+</html>  
+<?php 
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+        include "user.php";
+        include "dbConnect.php";
+
+        $obj=new dbConnect();
+        $get=$obj->connect();
+      
+        
+        if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            $uname=$_POST['uname'];
+            $email=$_POST['email'];
+            $pass=$_POST['pass'];
+            $obj1=new User();
+            $obj1->insert($uname,$email,$pass,$get);
+            if(!$obj1)
+                {
+                echo"not Inserted";
+                }
+            else
+                {
+                    echo"Inserted";
+                }
+            }
+        }
+
+?>
