@@ -1,0 +1,12 @@
+{
+    "name": "",
+    "description": "",
+    "autoload": {
+        "psr-4": {"App\\registration\\": "src/"}
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.0",
+        "phpunit/phpunit": "^7.5.1",
+        "rivsen/hello-world": "^0.1.0"
+    }
+}
