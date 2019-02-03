@@ -1,17 +1,4 @@
-
-<!-- // $to      = 'diwanitrupti@gmail.com'; // Send email to our user
-//           $subject = 'Signup | Verification'; // Give the email a subject
-//           $message = "hello
-//                      boy
-//                       ";
-//           $headers = 'From: trupti.diwani@qed42.com' . "\r\n"; // Set from headers
-//           mail($to, $subject, $message, $headers); // Send our email -->
-
-
 <?php
-echo "hello";
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use  App\registration\dbConnect;
