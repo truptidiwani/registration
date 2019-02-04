@@ -1,12 +1,22 @@
+<!-- // $to      = 'diwanitrupti@gmail.com'; // Send email to our user
+//           $subject = 'Signup | Verification'; // Give the email a subject
+//           $message = "hello
+//                      boy
+//                       ";
+//           $headers = 'From: trupti.diwani@qed42.com' . "\r\n"; // Set from headers
+//           mail($to, $subject, $message, $headers); // Send our email -->
+
+
 <?php
+echo "hello";
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use  App\registration\dbConnect;
 use  App\registration\user;
-
 //Load Composer's autoloader
 require 'vendor/autoload.php';
-
 $mail = new PHPMailer(true);  
                           // Passing `true` enables exceptions
 try {
@@ -33,7 +43,6 @@ try {
     $mail->Subject = 'Here is the subject';
     $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
     $mail->send();
     echo 'Message has been sent';
 } catch (Exception $e) {

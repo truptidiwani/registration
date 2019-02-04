@@ -1,6 +1,17 @@
+<?php
+session_start();  
+print_r($_SESSION['uname']);
+if(isset($_SESSION)){
+$user= $_SESSION['uname'];
+if($user){
+    echo'u are already logged in <a href="logout.php"> logout</a>';
+    exit();
+}
+}
+?>
 <!DOCTYPE html>  
  <html lang="en" class="no-js">  
- <head>  
+    <head>  
         <meta charset="UTF-8" />  
         <title>Login </title>  
         <meta name="viewport" content="width=device-width, initial-scale=1.0">   
@@ -23,45 +34,44 @@
 
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
-        session_start();  
+        
         require 'vendor/autoload.php';
-      
-
-        //include "user.php";
-       //include "dbConnect.php";
         $obj=new dbConnect();
         $get=$obj->connect();
         
 
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
             $uname=$_POST['uname'];
             $pass=md5($_POST['pass']);
-            // print_r($get);
+            
             $obj1=new User();
             $result= $obj1->chk_user( $_POST['uname'], $pass,$get);
-        if($result==1)
-            {
-                $_SESSION["uname"]= $_POST['uname'];
-                $_SESSION["pass"]= $_POST['pass'];
 
-                if ($_POST["remember"]=='1' || $_POST["remember"]=='on')
-                {
-                    setcookie ('uname',$_POST['uname']);
-                    setcookie ('pass',$_POST['pass']);
-                    
+                if($result){
+                    if($result=="admin")
+                    {
+                        $obj1->SetSessionandCookie($uname, $pass, $_POST["remember"]);
+                        
+                        header("location: welcome.php?role=".$result);
+                    }
+                    else
+                    {
+                        header("location: welcome.php?role=".$result);
+                    }
                 }
-                print_r($_COOKIE);
-
-                //header('Location: ./welcome.php');
-            }
+                   
         else
-            {
-                echo"Invalid User";
-            }
-                
+             {
+                 echo"Invalid User";
+             }
+              //session_destroy();          
         }
     ?>
+<?php
 
+
+?>
 
 
 

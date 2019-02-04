@@ -59,8 +59,6 @@
                 
                 }
 
-            //mail verification
-            $obj1->sendemail($uname,$email,$pass);
             }
         //}
 
